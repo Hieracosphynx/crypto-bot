@@ -41,8 +41,12 @@ module.exports = {
         .setRequired(true)
         .addChoice('Ethereum', 'ETH')
         .addChoice('Bitcoin', 'BTC')
-        .addChoice('Doge`coin', 'DOG')
+        .addChoice('Dogecoin', 'DOG')
         .addChoice('Cryptoblades', 'SKILL')
+        .addChoice('DinoX', 'DNXC')
+        .addChoice('Cordano', 'ADA')
+        .addChoice('PlantVsUndead', 'PVU')
+        .addChoice('Polkamonster', 'PKMON')
     )
     .addStringOption((option) =>
       option
