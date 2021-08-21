@@ -1,6 +1,6 @@
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const { token } = require('./config.json');
+require('dotenv').config();
 const fs = require('fs');
 
 const clientId = '878038952697819166';
@@ -18,7 +18,7 @@ for (const file of commandFiles) {
 
 const rest = new REST({
   version: '9',
-}).setToken(token);
+}).setToken(process.env.TOKEN);
 
 (async () => {
   try {
