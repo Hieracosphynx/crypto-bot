@@ -1,10 +1,12 @@
+const Discord = require('discord.js');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
+const client = new Discord.Client({ intents: ['GUILDS', 'GUILD_MESSAGES'] });
 require('dotenv').config();
 const fs = require('fs');
 
-const clientId = '878038952697819166';
-const guildId = '878045552598724689';
+const clientId = process.env.CLIENT_ID;
+const guildId = '767371436603211797';
 
 const commands = [];
 const commandFiles = fs
