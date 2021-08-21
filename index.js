@@ -1,7 +1,8 @@
 const fs = require('fs');
-const { token, api_key } = require('./config.json');
+// const { token, api_key } = require('./config.json');
 const { Client, Collection, Intents } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+require('dotenv').config();
 const fetch = require('node-fetch');
 client.commands = new Collection();
 
@@ -15,7 +16,7 @@ setInterval(async () => {
     {
       method: 'GET',
       headers: {
-        'X-CMC_PRO_API_KEY': api_key,
+        'X-CMC_PRO_API_KEY': process.env.API_KEY,
       },
     }
   );
@@ -50,4 +51,4 @@ client.on('interactionCreate', async (interaction) => {
   }
 });
 
-client.login(token);
+client.login(process.env.TOKEN);

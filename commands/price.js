@@ -1,19 +1,17 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const fetch = require('node-fetch');
-const { api_key } = require('../config.json');
-
-const { MessageEmbed, Interaction, Message } = require('discord.js');
+require('dotenv').config();
+// const { api_key } = require('../config.json');
 
 const fetchPrice = async (crypto, currency) => {
   currency = currency === null ? 'USD' : currency;
-  console.log(currency);
   try {
     const response = await fetch(
       `https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=${crypto}&convert=${currency}`,
       {
         method: 'GET',
         headers: {
-          'X-CMC_PRO_API_KEY': api_key,
+          'X-CMC_PRO_API_KEY': process.env.API_KEY,
         },
       }
     );
@@ -57,13 +55,10 @@ module.exports = {
 
   async execute(interaction) {
     await interaction.reply({
-      data: { embed: new MessageEmbed().setTitle('SSSS') },
+      content: await fetchPrice(
+        interaction.options.getString('cryptocurrency'),
+        interaction.options.getString('currency')
+      ),
     });
-    // await interaction.reply({
-    //   content: await fetchPrice(
-    //     interaction.options.getString('cryptocurrency'),
-    //     interaction.options.getString('currency')
-    //   ),
-    // });
   },
 };
