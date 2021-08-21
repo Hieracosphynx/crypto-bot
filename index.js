@@ -12,7 +12,7 @@ const commandFiles = fs
 
 setInterval(async () => {
   const response = await fetch(
-    `https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=SKILL`,
+    `https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=SKILL`,
     {
       method: 'GET',
       headers: {
