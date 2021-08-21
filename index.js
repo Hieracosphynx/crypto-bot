@@ -12,7 +12,7 @@ const commandFiles = fs
 
 setInterval(async () => {
   const response = await fetch(
-    `https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=SKILL`,
+    `https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=SKILL`,
     {
       method: 'GET',
       headers: {
@@ -25,9 +25,11 @@ setInterval(async () => {
   // }
   const data = await response.json();
   const cryptoPrice = `${data.data.SKILL.quote.USD.price.toFixed(2)}`;
-
-  client.user.setUsername(`${cryptoPrice}|SKILL`);
-}, 3600000);
+  client.guilds.cache
+    .find((guild) => guild.id === '767371436603211797')
+    .me.setNickname(`${cryptoPrice}|SKILL`);
+  // client.user.setUsername(`${cryptoPrice}|SKILL`);
+}, 1800000);
 
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
