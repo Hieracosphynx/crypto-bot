@@ -20,7 +20,7 @@ const fetchPrice = async (crypto, currency) => {
       throw new Error('Invalid!');
     }
     const data = await response.json();
-    const cryptoPrice = `${currency}: ${data.data[crypto].quote[
+    const cryptoPrice = `${crypto} ${currency}: ${data.data[crypto].quote[
       currency
     ].price.toFixed(2)}`;
 
