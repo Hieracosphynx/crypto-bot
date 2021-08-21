@@ -1,14 +1,21 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
-const fetchData = (myString) => {
-  return myString;
-};
-
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('price')
-    .setDescription('/price CRYPTO'),
+    .setDescription('/price CRYPTOCURRENCY')
+    .addStringOption((option, cryptocurrency) =>
+      option
+        .setName('cryptocurrencies')
+        .setDescription('Choose your cryptocurrency')
+        .addChoice('ETH', 'Ethereum')
+        .addChoice('BIT', 'Bitcoin')
+        .addChoice('DOG', 'Doge Coin')
+    ),
   async execute(interaction) {
-    await interaction.reply(fetchData('What?!'));
+    await interaction.reply({
+      content: '[This]https://Cryptocurrency.com',
+      ephemeral: true,
+    });
   },
 };
