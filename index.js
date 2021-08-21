@@ -1,12 +1,32 @@
 const fs = require('fs');
-const { token } = require('./config.json');
+const { token, api_key } = require('./config.json');
 const { Client, Collection, Intents } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const fetch = require('node-fetch');
 client.commands = new Collection();
 
 const commandFiles = fs
   .readdirSync('./commands')
   .filter((file) => file.endsWith('.js'));
+
+setInterval(async () => {
+  const response = await fetch(
+    `https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=SKILL`,
+    {
+      method: 'GET',
+      headers: {
+        'X-CMC_PRO_API_KEY': api_key,
+      },
+    }
+  );
+  // if (!response.ok) {
+  //   throw new Error('Invalid!');
+  // }
+  const data = await response.json();
+  const cryptoPrice = `${data.data.SKILL.quote.USD.price.toFixed(2)}`;
+
+  client.user.setUsername(`${cryptoPrice}|SKILL`);
+}, 3600000);
 
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);

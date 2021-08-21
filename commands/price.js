@@ -2,6 +2,8 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const fetch = require('node-fetch');
 const { api_key } = require('../config.json');
 
+const { MessageEmbed, Interaction, Message } = require('discord.js');
+
 const fetchPrice = async (crypto, currency) => {
   currency = currency === null ? 'USD' : currency;
   console.log(currency);
@@ -52,12 +54,16 @@ module.exports = {
         .addChoice('Philippine Pesos', 'PHP')
         .addChoice('Canadian Dollar', 'CAD')
     ),
+
   async execute(interaction) {
     await interaction.reply({
-      content: await fetchPrice(
-        interaction.options.getString('cryptocurrency'),
-        interaction.options.getString('currency')
-      ),
+      data: { embed: new MessageEmbed().setTitle('SSSS') },
     });
+    // await interaction.reply({
+    //   content: await fetchPrice(
+    //     interaction.options.getString('cryptocurrency'),
+    //     interaction.options.getString('currency')
+    //   ),
+    // });
   },
 };
