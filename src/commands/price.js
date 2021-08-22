@@ -76,7 +76,6 @@ module.exports = {
         .addChoice('Philippine Pesos', 'PHP')
         .addChoice('Canadian Dollar', 'CAD')
     ),
-
   async execute(interaction) {
     await interaction.reply({
       embeds: [

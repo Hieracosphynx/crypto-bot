@@ -6,7 +6,7 @@ const fs = require('fs');
 require('dotenv').config();
 
 const clientId = process.env.CLIENT_ID;
-const guildId = '767371436603211797';
+const guildId = process.env.GUILD_ID;
 
 const commands = [];
 const commandFiles = fs
