@@ -9,7 +9,7 @@ client.commands = new Collection();
 setInterval(async () => {
   try {
     const response = await fetch(
-      `https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=SKILL`,
+      `https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=ADA`,
       {
         method: 'GET',
         headers: {
@@ -21,10 +21,10 @@ setInterval(async () => {
       throw new Error('Invalid!');
     }
     const data = await response.json();
-    const cryptoPrice = `${data.data.SKILL.quote.USD.price.toFixed(2)}`;
+    const cryptoPrice = `${data.data.ADA.quote.USD.price.toFixed(2)}`;
     client.guilds.cache
       .find((guild) => guild.id === '767371436603211797')
-      .me.setNickname(`${cryptoPrice}|SKILL`);
+      .me.setNickname(`${cryptoPrice}|ADA`);
   } catch (e) {
     console.log(e.message);
     client.guilds.cache
