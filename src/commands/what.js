@@ -60,7 +60,7 @@ const fetchData = async (search) => {
         `https://cryptoicons.org/api/black/${searchData.symbol.toLowerCase()}/200`
       )
       .setTimestamp();
-    return embedValueSearch;
+    return embedSearch;
   } catch (e) {
     console.log(e.message);
     return new MessageEmbed()
