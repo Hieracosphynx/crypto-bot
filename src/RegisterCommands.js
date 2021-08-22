@@ -1,16 +1,16 @@
 const Discord = require('discord.js');
-const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
+const { REST } = require('@discordjs/rest');
 const client = new Discord.Client({ intents: ['GUILDS', 'GUILD_MESSAGES'] });
-require('dotenv').config();
 const fs = require('fs');
+require('dotenv').config();
 
 const clientId = process.env.CLIENT_ID;
-const guildId = '767371436603211797';
+const guildId = '878045552598724689';
 
 const commands = [];
 const commandFiles = fs
-  .readdirSync('./commands')
+  .readdirSync('./src/commands')
   .filter((file) => file.endsWith('.js'));
 
 for (const file of commandFiles) {

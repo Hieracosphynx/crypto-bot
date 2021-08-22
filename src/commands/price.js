@@ -1,7 +1,7 @@
+const { MessageEmbed } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const fetch = require('node-fetch');
 require('dotenv').config();
-// const { api_key } = require('../config.json');
 
 const fetchPrice = async (crypto, currency) => {
   currency = currency === null ? 'USD' : currency;
@@ -20,11 +20,31 @@ const fetchPrice = async (crypto, currency) => {
       throw new Error('Invalid!');
     }
     const data = await response.json();
-    const cryptoPrice = `${crypto} ${currency}: ${data.data[crypto].quote[
-      currency
-    ].price.toFixed(2)}`;
+    const cryptoName = data.data[crypto].name;
+    const currencyData = data.data[crypto].quote[currency];
+    const dateStr = new Date(currencyData.last_updated).toUTCString();
+    const cryptoPrice = `${currency} ${currencyData.price.toFixed(2)}`;
+    const cryptoUrl = `https://coinmarketcap.com/currencies/${cryptoName.toLowerCase()}/`;
 
-    return cryptoPrice;
+    const embedMarketPrice = new MessageEmbed()
+      .setTitle(cryptoName)
+      .setColor('#6f98b0')
+      .setThumbnail(
+        'https://iconape.com/wp-content/files/bp/48627/png/coinmarketcap-1.png'
+      )
+      .setURL(cryptoUrl)
+      .addFields(
+        { name: 'Abbreviation', value: crypto, inline: true },
+        { name: 'Market Price', value: cryptoPrice, inline: true },
+        {
+          name: 'Source',
+          value: cryptoUrl,
+        }
+      )
+      .setImage(`https://cryptoicons.org/api/black/${crypto.toLowerCase()}/200`)
+      .setFooter(`Last update ${dateStr}`);
+
+    return embedMarketPrice;
   } catch (e) {
     return e.message;
   }
@@ -40,10 +60,10 @@ module.exports = {
         .setDescription('Choose your cryptocurrency')
         .setRequired(true)
         .addChoice('Bitcoin', 'BTC')
-        .addChoice('Cordano', 'ADA')
+        .addChoice('Cardano', 'ADA')
         .addChoice('Cryptoblades', 'SKILL')
         .addChoice('DinoX', 'DNXC')
-        .addChoice('Dogecoin', 'DOG')
+        .addChoice('Dogecoin', 'DOGE')
         .addChoice('Ethereum', 'ETH')
         .addChoice('PlantVsUndead', 'PVU')
         .addChoice('Polkamonster', 'PKMON')
@@ -59,10 +79,12 @@ module.exports = {
 
   async execute(interaction) {
     await interaction.reply({
-      content: await fetchPrice(
-        interaction.options.getString('cryptocurrency'),
-        interaction.options.getString('currency')
-      ),
+      embeds: [
+        await fetchPrice(
+          interaction.options.getString('cryptocurrency'),
+          interaction.options.getString('currency')
+        ),
+      ],
     });
   },
 };
