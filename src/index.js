@@ -31,7 +31,7 @@ setInterval(async () => {
       .find((guild) => guild.id === '767371436603211797')
       .me.setNickname(`Cryptobot`);
   }
-}, 600000);
+}, 300000);
 
 const eventFiles = fs
   .readdirSync('./src/events')
