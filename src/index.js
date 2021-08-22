@@ -22,8 +22,6 @@ const crypto = [
   },
 ];
 
-let fetchIndex = 0;
-
 setInterval(() => {
   crypto.map(async (current) => {
     try {
@@ -40,8 +38,10 @@ setInterval(() => {
         throw new Error('Could not get data.');
       }
       const data = await response.json();
-      console.log(data);
       current.value = data.data[current.symbol].quote.USD.price.toFixed(2);
+
+      console.log(`Fetch data: ${current.value} | ${current.symbol}`);
+
       client.guilds.cache
         .find((guild) => guild.id === guildId)
         .me.setNickname(`${current.value} | ${current.symbol}`);
@@ -53,13 +53,12 @@ setInterval(() => {
 
 let index = 0;
 setInterval(() => {
+  let use = index++ % crypto.length;
+  let nickName = `${crypto[use].value} | ${crypto[use].symbol}`;
   client.guilds.cache
     .find((guild) => guild.id === guildId)
-    .me.setNickname(
-      `${crypto[index++ % crypto.length].value} | ${
-        crypto[index % crypto.length].symbol
-      }`
-    );
+    .me.setNickname(`${nickName}`);
+  console.log(`10seconds Nickname: ${nickName}`);
 }, 10000);
 
 const eventFiles = fs
@@ -102,30 +101,3 @@ client.on('interactionCreate', async (interaction) => {
 });
 
 client.login(process.env.TOKEN);
-
-// setInterval(async () => {
-//   try {
-//     const response = await fetch(
-//       `https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=${crypto[fetchIndex++]}`,
-//       {
-//         method: 'GET',
-//         headers: {
-//           'X-CMC_PRO_API_KEY': process.env.API_KEY,
-//         },
-//       }
-//     );
-//     if (!response.ok) {
-//       throw new Error('Invalid!');
-//     }
-//     const data = await response.json();
-//     const cryptoPrice = `${data.data.ADA.quote.USD.price.toFixed(2)}`;
-//     client.guilds.cache
-//       .find((guild) => guild.id === guildId)
-//       .me.setNickname(`${cryptoPrice}|ADA`);
-//   } catch (e) {
-//     console.log(e.message);
-//   client.guilds.cache
-//     .find((guild) => guild.id === guildId)
-//     .me.setNickname(`Cryptobot`);
-// }
-// }, 300000);
