@@ -23,12 +23,12 @@ setInterval(async () => {
     const data = await response.json();
     const cryptoPrice = `${data.data.SKILL.quote.USD.price.toFixed(2)}`;
     client.guilds.cache
-      .find((guild) => guild.id === '878045552598724689')
+      .find((guild) => guild.id === '767371436603211797')
       .me.setNickname(`${cryptoPrice}|SKILL`);
   } catch (e) {
     console.log(e.message);
     client.guilds.cache
-      .find((guild) => guild.id === '878045552598724689')
+      .find((guild) => guild.id === '767371436603211797')
       .me.setNickname(`Cryptobot`);
   }
 }, 1800000);
