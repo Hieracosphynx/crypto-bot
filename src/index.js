@@ -40,7 +40,7 @@ setInterval(() => {
       const data = await response.json();
       current.value = data.data[current.symbol].quote.USD.price.toFixed(2);
 
-      console.log(`Fetch data: ${current.value} | ${current.symbol}`);
+      console.log(`Fetch data: $${current.value} | ${current.symbol}`);
     } catch (e) {
       console.log(e.message);
     }
@@ -50,11 +50,11 @@ setInterval(() => {
 let index = 0;
 setInterval(() => {
   let use = index++ % crypto.length;
-  let nickName = `${crypto[use].value} | ${crypto[use].symbol}`;
+  let nickName = `$${crypto[use].value} | ${crypto[use].symbol}`;
   client.guilds.cache
     .find((guild) => guild.id === guildId)
     .me.setNickname(`${nickName}`);
-  console.log(`10seconds Nickname: ${nickName}`);
+  console.log(`10seconds Nickname: $${nickName}`);
 }, 10000);
 
 const eventFiles = fs
