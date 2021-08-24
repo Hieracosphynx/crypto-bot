@@ -45,12 +45,12 @@ setInterval(() => {
       console.log(e.message);
     }
   });
-}, 1200000);
+}, 600000);
 
 let index = 0;
 setInterval(() => {
-  let use = index++ % crypto.length;
-  let nickName = `$${crypto[use].value} | ${crypto[use].symbol}`;
+  let computedIndex = index++ % crypto.length;
+  let nickName = `$${crypto[computedIndex].value} | ${crypto[computedIndex].symbol}`;
   client.guilds.cache
     .find((guild) => guild.id === guildId)
     .me.setNickname(`${nickName}`);
