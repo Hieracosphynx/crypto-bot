@@ -41,10 +41,6 @@ setInterval(() => {
       current.value = data.data[current.symbol].quote.USD.price.toFixed(2);
 
       console.log(`Fetch data: ${current.value} | ${current.symbol}`);
-
-      client.guilds.cache
-        .find((guild) => guild.id === guildId)
-        .me.setNickname(`${current.value} | ${current.symbol}`);
     } catch (e) {
       console.log(e.message);
     }
