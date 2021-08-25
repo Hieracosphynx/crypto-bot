@@ -45,7 +45,7 @@ setInterval(() => {
       console.log(e.message);
     }
   });
-}, 600000);
+}, 1200000);
 
 let index = 0;
 setInterval(() => {
