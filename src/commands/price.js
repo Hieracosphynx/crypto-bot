@@ -1,5 +1,5 @@
-const { MessageEmbed } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch');
 require('dotenv').config();
 
@@ -19,12 +19,14 @@ const fetchPrice = async (crypto, currency) => {
     if (!response.ok) {
       throw new Error('Invalid!');
     }
+
     const data = await response.json();
     const cryptoName = data.data[crypto].name;
     const currencyData = data.data[crypto].quote[currency];
     const dateStr = new Date(currencyData.last_updated).toUTCString();
     const cryptoPrice = `${currency} ${currencyData.price.toFixed(2)}`;
-    const cryptoUrl = `https://coinmarketcap.com/currencies/${cryptoName.toLowerCase()}/`;
+    const cryptoSlug = data.data[crypto].slug;
+    const cryptoUrl = `https://coinmarketcap.com/currencies/${cryptoSlug}/`;
 
     const embedMarketPrice = new MessageEmbed()
       .setTitle(cryptoName)
@@ -67,6 +69,7 @@ module.exports = {
         .addChoice('Ethereum', 'ETH')
         .addChoice('PlantVsUndead', 'PVU')
         .addChoice('Polkamonster', 'PKMON')
+        .addChoice('Smooth Love Potion', 'SLP')
     )
     .addStringOption((option) =>
       option

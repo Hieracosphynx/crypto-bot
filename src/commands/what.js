@@ -6,7 +6,7 @@ require('dotenv').config();
 const fetchData = async (search) => {
   try {
     const response = await fetch(
-      `https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?symbol=${search}`,
+      `https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/info?symbol=${search}`,
       {
         method: 'GET',
         headers: {

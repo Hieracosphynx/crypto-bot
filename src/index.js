@@ -7,6 +7,8 @@ require('dotenv').config();
 client.commands = new Collection();
 
 const guildId = process.env.GUILD_ID;
+const isInitial = true;
+
 const crypto = [
   {
     symbol: 'ADA',
@@ -22,7 +24,7 @@ const crypto = [
   },
 ];
 
-setInterval(() => {
+const fetchData = async () => {
   crypto.map(async (current) => {
     try {
       const response = await fetch(
@@ -45,6 +47,15 @@ setInterval(() => {
       console.log(e.message);
     }
   });
+};
+
+if (isInitial) {
+  fetchData();
+  isInital = false;
+}
+
+setInterval(() => {
+  fetchData();
 }, 1200000);
 
 let index = 0;
