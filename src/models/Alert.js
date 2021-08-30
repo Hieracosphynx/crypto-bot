@@ -6,7 +6,7 @@ const AlertSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    cryptocurreny: {
+    cryptocurrency: {
       type: String,
       required: true,
     },
