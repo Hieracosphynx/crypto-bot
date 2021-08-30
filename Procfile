@@ -1,1 +1,1 @@
-worker: npm run register && npm start
+worker: npm start
