@@ -12,9 +12,13 @@ var _fs = _interopRequireDefault(require("fs"));
 
 var _Guild = _interopRequireDefault(require("./models/Guild"));
 
+var _dotenv = require("dotenv");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Init client
+// Init dotenv
+(0, _dotenv.config)(); // Init client
+
 const client = new _discord.Client({
   intents: [_discord.Intents.FLAGS.GUILDS, _discord.Intents.FLAGS.GUILD_MESSAGES, _discord.Intents.FLAGS.DIRECT_MESSAGES]
 });

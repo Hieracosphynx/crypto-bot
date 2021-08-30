@@ -25,7 +25,7 @@ const alertHandler = async (userId, crypto, value, guildId) => {
   });
   alert.save();
   return {
-    embeds: [new _discord.MessageEmbed().setColor('#7afaae').setDescription('Saved!')]
+    embeds: [new _discord.MessageEmbed().setColor('#7afaae').setDescription("Not yet ".concat((0, _builders.bold)('functional'), "..."))]
   };
 };
 

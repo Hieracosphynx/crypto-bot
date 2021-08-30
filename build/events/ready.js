@@ -9,8 +9,6 @@ require("core-js/modules/es.promise.js");
 
 var _db = _interopRequireDefault(require("../config/db"));
 
-var _dotenv = require("dotenv");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const serverReady = {
@@ -19,9 +17,7 @@ const serverReady = {
 
   async execute(client) {
     // Connect to database
-    await (0, _db.default)(); // Initialize dotenv
-
-    (0, _dotenv.config)(); // const channel = client.channels.cache.get('881378641563496478');
+    await (0, _db.default)(); // const channel = client.channels.cache.get('881378641563496478');
     // channel.send('Baho mo naman');
 
     client.user.setPresence({
