@@ -1,20 +1,18 @@
 import { Client, Collection, Intents } from 'discord.js';
-import { config } from 'dotenv';
 import fs from 'fs';
 import Guild from './models/Guild';
-import connectDB from './config/db';
-
-// Init .env
-config();
 
 // Init client
 const client = new Client({
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.DIRECT_MESSAGES,
+  ],
 });
 client.commands = new Collection();
 
-// Connect to database.
-connectDB();
+// CRON job for alarm
 
 // Read through event files
 const eventFiles = fs

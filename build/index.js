@@ -8,25 +8,18 @@ require("core-js/modules/es.promise.js");
 
 var _discord = require("discord.js");
 
-var _dotenv = require("dotenv");
-
 var _fs = _interopRequireDefault(require("fs"));
 
 var _Guild = _interopRequireDefault(require("./models/Guild"));
 
-var _db = _interopRequireDefault(require("./config/db"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Init .env
-(0, _dotenv.config)(); // Init client
-
+// Init client
 const client = new _discord.Client({
-  intents: [_discord.Intents.FLAGS.GUILDS, _discord.Intents.FLAGS.GUILD_MESSAGES]
+  intents: [_discord.Intents.FLAGS.GUILDS, _discord.Intents.FLAGS.GUILD_MESSAGES, _discord.Intents.FLAGS.DIRECT_MESSAGES]
 });
-client.commands = new _discord.Collection(); // Connect to database.
-
-(0, _db.default)(); // Read through event files
+client.commands = new _discord.Collection(); // CRON job for alarm
+// Read through event files
 
 const eventFiles = _fs.default.readdirSync('./src/events').filter(file => file.endsWith('.js'));
 

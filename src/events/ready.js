@@ -1,7 +1,21 @@
+import connectDB from '../config/db';
+import { config } from 'dotenv';
+
 const serverReady = {
   name: 'ready',
   once: true,
-  execute(client) {
+  async execute(client) {
+    // Connect to database
+    await connectDB();
+
+    // Initialize dotenv
+    config();
+
+    // const channel = client.channels.cache.get('881378641563496478');
+    // channel.send('Baho mo naman');
+    client.user.setPresence({
+      status: 'idle',
+    });
     console.log(`Ready! ${client.user.tag}`);
   },
 };

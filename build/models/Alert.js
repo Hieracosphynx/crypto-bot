@@ -10,6 +10,10 @@ var _mongoose = _interopRequireDefault(require("mongoose"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const AlertSchema = _mongoose.default.Schema({
+  guild_id: {
+    type: String,
+    ref: 'guilds'
+  },
   user_id: {
     type: String,
     required: true

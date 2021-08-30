@@ -2,6 +2,10 @@ import mongoose from 'mongoose';
 
 const AlertSchema = mongoose.Schema(
   {
+    guild_id: {
+      type: String,
+      ref: 'guilds',
+    },
     user_id: {
       type: String,
       required: true,

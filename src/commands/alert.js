@@ -2,8 +2,9 @@ import { MessageEmbed } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import Alert from '../models/Alert';
 
-const alertHandler = async (userId, crypto, value) => {
+const alertHandler = async (userId, crypto, value, guildId) => {
   const alert = await new Alert({
+    guild_id: guildId,
     user_id: userId,
     cryptocurrency: crypto,
     value: value,
@@ -36,6 +37,7 @@ const alert = {
   async execute(interaction) {
     const userId = interaction.user.id;
     const crypto = interaction.options.getString('cryptocurrency');
+    const { id: guildId } = interaction.guild;
     const strValue = interaction.options.getString('value');
     const value = Number(strValue);
 
@@ -49,7 +51,7 @@ const alert = {
       });
       return;
     }
-    await interaction.reply(await alertHandler(userId, crypto, value));
+    await interaction.reply(await alertHandler(userId, crypto, value, guildId));
   },
 };
 
