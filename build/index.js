@@ -1,5 +1,7 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 require("core-js/modules/es.string.ends-with.js");
 
 require("core-js/modules/web.dom-collections.iterator.js");
@@ -13,8 +15,6 @@ var _fs = _interopRequireDefault(require("fs"));
 var _Guild = _interopRequireDefault(require("./models/Guild"));
 
 var _dotenv = require("dotenv");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Init dotenv
 (0, _dotenv.config)(); // Init client

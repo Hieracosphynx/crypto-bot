@@ -1,5 +1,7 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -12,8 +14,6 @@ var _discord = require("discord.js");
 var _builders = require("@discordjs/builders");
 
 var _Alert = _interopRequireDefault(require("../models/Alert"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const alertHandler = async (userId, crypto, value, guildId) => {
   const alert = await new _Alert.default({
