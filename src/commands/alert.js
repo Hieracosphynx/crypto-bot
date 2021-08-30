@@ -1,5 +1,5 @@
 import { MessageEmbed } from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
+import { SlashCommandBuilder, bold } from '@discordjs/builders';
 import Alert from '../models/Alert';
 
 const alertHandler = async (userId, crypto, value, guildId) => {
@@ -14,7 +14,11 @@ const alertHandler = async (userId, crypto, value, guildId) => {
   alert.save();
 
   return {
-    embeds: [new MessageEmbed().setColor('#7afaae').setDescription('Saved!')],
+    embeds: [
+      new MessageEmbed()
+        .setColor('#7afaae')
+        .setDescription(`Not yet ${bold('functional')}...`),
+    ],
   };
 };
 

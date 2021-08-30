@@ -1,6 +1,10 @@
 import { Client, Collection, Intents } from 'discord.js';
 import fs from 'fs';
 import Guild from './models/Guild';
+import { config } from 'dotenv';
+
+// Init dotenv
+config();
 
 // Init client
 const client = new Client({
