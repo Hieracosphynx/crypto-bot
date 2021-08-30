@@ -1,10 +1,11 @@
 import { Client, Collection, Intents } from 'discord.js';
-import fetch from 'node-fetch';
+import { config } from 'dotenv';
 import fs from 'fs';
 import connectDB from './config/db';
 
+config();
+
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
-require('dotenv').config();
 client.commands = new Collection();
 
 connectDB();
