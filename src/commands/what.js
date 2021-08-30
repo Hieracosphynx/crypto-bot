@@ -1,9 +1,8 @@
 import { MessageEmbed } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import fetch from 'node-fetch';
-require('dotenv').config();
 
-const fetchData = async (search) => {
+const whatHandler = async (search) => {
   try {
     const response = await fetch(
       `https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?symbol=${search}`,
@@ -83,7 +82,7 @@ const what = {
     ),
   async execute(interaction) {
     await interaction.reply({
-      embeds: [await fetchData(interaction.options.getString('input'))],
+      embeds: [await whatHandler(interaction.options.getString('input'))],
     });
   },
 };

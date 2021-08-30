@@ -8,7 +8,7 @@ const interaction = {
   name: 'interactionCreate',
 
   execute(interaction) {
-    console.log("".concat(interaction.user.tag, " in #").concat(interaction.channel.name, " triggred an action"));
+    console.log("".concat(interaction.user.tag, " in #").concat(interaction.channel.name, " triggered an action"));
   }
 
 };

@@ -1,15 +1,22 @@
 import { Client, Collection, Intents } from 'discord.js';
 import { config } from 'dotenv';
 import fs from 'fs';
+import Guild from './models/Guild';
 import connectDB from './config/db';
 
+// Init .env
 config();
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+// Init client
+const client = new Client({
+  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+});
 client.commands = new Collection();
 
+// Connect to database.
 connectDB();
 
+// Read through event files
 const eventFiles = fs
   .readdirSync('./src/events')
   .filter((file) => file.endsWith('.js'));
@@ -25,6 +32,7 @@ for (const file of eventFiles) {
   }
 }
 
+// Read command files
 const commandFiles = fs
   .readdirSync('./src/commands')
   .filter((file) => file.endsWith('.js'));
@@ -34,6 +42,7 @@ for (const file of commandFiles) {
   client.commands.set(command.default.data.name, command.default);
 }
 
+// Condition commands
 client.on('interactionCreate', async (interaction) => {
   if (!interaction.isCommand()) return;
 
@@ -51,4 +60,32 @@ client.on('interactionCreate', async (interaction) => {
   }
 });
 
+// Save guild id
+const guildHandler = async (guildId, callback) => {
+  let guild = await Guild.find({ guild_id: guildId });
+
+  if (guild.length > 0) {
+    return callback('Guild already exist');
+  }
+
+  guild = new Guild({
+    guild_id: guildId,
+  });
+
+  guild.save();
+  return callback('Success');
+};
+
+client.on('messageCreate', async (message) => {
+  const { guildId } = message;
+  try {
+    guildHandler(guildId, (callback) => {
+      console.log(callback);
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+// Login
 client.login(process.env.TOKEN);

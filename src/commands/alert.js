@@ -12,7 +12,9 @@ const alertHandler = async (userId, crypto, value) => {
 
   alert.save();
 
-  return { content: `Saved!` };
+  return {
+    embeds: [new MessageEmbed().setColor('#7afaae').setDescription('Saved!')],
+  };
 };
 
 const alert = {

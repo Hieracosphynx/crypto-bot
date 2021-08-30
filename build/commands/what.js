@@ -17,9 +17,7 @@ var _nodeFetch = _interopRequireDefault(require("node-fetch"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-require('dotenv').config();
-
-const fetchData = async search => {
+const whatHandler = async search => {
   try {
     const response = await (0, _nodeFetch.default)("https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?symbol=".concat(search), {
       method: 'GET',
@@ -64,7 +62,7 @@ const what = {
 
   async execute(interaction) {
     await interaction.reply({
-      embeds: [await fetchData(interaction.options.getString('input'))]
+      embeds: [await whatHandler(interaction.options.getString('input'))]
     });
   }
 

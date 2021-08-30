@@ -1,9 +1,8 @@
 import { MessageEmbed } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import fetch from 'node-fetch';
-require('dotenv').config();
 
-const fetchPrice = async (crypto, currency) => {
+const priceHandler = async (crypto, currency) => {
   currency = currency === null ? 'USD' : currency;
   try {
     const response = await fetch(
@@ -82,7 +81,7 @@ const price = {
   async execute(interaction) {
     await interaction.reply({
       embeds: [
-        await fetchPrice(
+        await priceHandler(
           interaction.options.getString('cryptocurrency'),
           interaction.options.getString('currency')
         ),

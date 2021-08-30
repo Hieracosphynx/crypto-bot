@@ -17,9 +17,7 @@ var _nodeFetch = _interopRequireDefault(require("node-fetch"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-require('dotenv').config();
-
-const fetchPrice = async (crypto, currency) => {
+const priceHandler = async (crypto, currency) => {
   currency = currency === null ? 'USD' : currency;
 
   try {
@@ -64,7 +62,7 @@ const price = {
 
   async execute(interaction) {
     await interaction.reply({
-      embeds: [await fetchPrice(interaction.options.getString('cryptocurrency'), interaction.options.getString('currency'))]
+      embeds: [await priceHandler(interaction.options.getString('cryptocurrency'), interaction.options.getString('currency'))]
     });
   }
 

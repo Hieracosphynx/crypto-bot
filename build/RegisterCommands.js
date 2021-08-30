@@ -16,16 +16,19 @@ var _rest = require("@discordjs/rest");
 
 var _fs = _interopRequireDefault(require("fs"));
 
+var _db = _interopRequireDefault(require("./config/db"));
+
+var _Guild = _interopRequireDefault(require("./models/Guild"));
+
+var _dotenv = require("dotenv");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+(0, _dotenv.config)();
 const client = new _discord.default.Client({
   intents: ['GUILDS', 'GUILD_MESSAGES']
 });
-
-require('dotenv').config();
-
 const clientId = process.env.CLIENT_ID;
-const guildId = process.env.GUILD_ID;
 const commands = [];
 
 const commandFiles = _fs.default.readdirSync('./src/commands').filter(file => file.endsWith('.js'));
@@ -42,12 +45,20 @@ const rest = new _rest.REST({
 
 (async () => {
   try {
-    console.log('/ commands wait');
-    await rest.put(_v.Routes.applicationGuildCommands(clientId, guildId), {
-      body: commands
+    await (0, _db.default)();
+    const guilds = await _Guild.default.find({});
+    console.log('Loading slash(/) commands');
+    guilds.map(async _ref => {
+      let {
+        guild_id: guildId
+      } = _ref;
+      await rest.put(_v.Routes.applicationGuildCommands(clientId, guildId), {
+        body: commands
+      });
     });
     console.log('Reloaded / commands');
-  } catch (e) {
-    console.error(e);
+    process.exit(0);
+  } catch (err) {
+    console.error(err.message);
   }
 })();
