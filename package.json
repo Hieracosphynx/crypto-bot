@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start:dev": "node src/index.js",
-    "start": "node build/index.js",
+    "start:dev": "nodemon babel-node --presets @babel/env src/index.js",
+    "start": "npm build && node build/index.js",
     "build": "babel src/ -d ./build/",
     "register": "npx babel-node --presets @babel/env ./build/RegisterCommands.js",
     "register:dev": "npx babel-node --presets @babel/env src/RegisterCommands.js"
