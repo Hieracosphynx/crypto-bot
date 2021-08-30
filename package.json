@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "nodemon --exec ./node_modules/.bin/babel-node src/index.js",
-    "start": "npm run build && nodemon ./build/index.js",
+    "start": "nodemon ./build/index.js",
     "dummy": "npm run register && npm start",
     "build": "babel src/ -d ./build/",
     "register": "npx babel-node --presets @babel/env ./build/RegisterCommands.js",
