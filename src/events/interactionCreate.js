@@ -1,4 +1,4 @@
-module.exports = {
+const interaction = {
   name: 'interactionCreate',
   execute(interaction) {
     console.log(
@@ -6,3 +6,5 @@ module.exports = {
     );
   },
 };
+
+export default interaction;

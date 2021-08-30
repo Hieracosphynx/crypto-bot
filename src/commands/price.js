@@ -1,6 +1,6 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
-const fetch = require('node-fetch');
+import { MessageEmbed } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
+import fetch from 'node-fetch';
 require('dotenv').config();
 
 const fetchPrice = async (crypto, currency) => {
@@ -52,7 +52,7 @@ const fetchPrice = async (crypto, currency) => {
   }
 };
 
-module.exports = {
+const price = {
   data: new SlashCommandBuilder()
     .setName('price')
     .setDescription('/price CRYPTOCURRENCY')
@@ -90,3 +90,5 @@ module.exports = {
     });
   },
 };
+
+export default price;

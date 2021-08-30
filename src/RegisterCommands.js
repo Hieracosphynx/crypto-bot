@@ -1,8 +1,9 @@
-const Discord = require('discord.js');
-const { Routes } = require('discord-api-types/v9');
-const { REST } = require('@discordjs/rest');
+import Discord from 'discord.js';
+import { Routes } from 'discord-api-types/v9';
+import { REST } from '@discordjs/rest';
+import fs from 'fs';
+
 const client = new Discord.Client({ intents: ['GUILDS', 'GUILD_MESSAGES'] });
-const fs = require('fs');
 require('dotenv').config();
 
 const clientId = process.env.CLIENT_ID;
@@ -15,7 +16,7 @@ const commandFiles = fs
 
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
-  commands.push(command.data.toJSON());
+  commands.push(command.default.data.toJSON());
 }
 
 const rest = new REST({

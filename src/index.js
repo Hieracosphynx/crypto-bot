@@ -1,13 +1,13 @@
-const { Client, Collection, Intents } = require('discord.js');
-const fetch = require('node-fetch');
-const fs = require('fs');
+import { Client, Collection, Intents } from 'discord.js';
+import fetch from 'node-fetch';
+import fs from 'fs';
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 require('dotenv').config();
 client.commands = new Collection();
 
 const guildId = process.env.GUILD_ID;
-const isInitial = true;
+let isInitial = true;
 
 const crypto = [
   {
@@ -28,7 +28,7 @@ const fetchData = async () => {
   crypto.map(async (current) => {
     try {
       const response = await fetch(
-        `https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=${current.symbol}`,
+        `https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=${current.symbol}`,
         {
           method: 'GET',
           headers: {
@@ -51,7 +51,7 @@ const fetchData = async () => {
 
 if (isInitial) {
   fetchData();
-  isInital = false;
+  isInitial = false;
 }
 
 setInterval(() => {
@@ -75,9 +75,11 @@ const eventFiles = fs
 for (const file of eventFiles) {
   const event = require(`./events/${file}`);
   if (event.once) {
-    client.once(event.name, (...args) => event.execute(...args));
+    client.once(event.default.name, (...args) =>
+      event.default.execute(...args)
+    );
   } else {
-    client.on(event.name, (...args) => event.execute(...args));
+    client.on(event.default.name, (...args) => event.default.execute(...args));
   }
 }
 
@@ -87,7 +89,7 @@ const commandFiles = fs
 
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
-  client.commands.set(command.data.name, command);
+  client.commands.set(command.default.data.name, command.default);
 }
 
 client.on('interactionCreate', async (interaction) => {

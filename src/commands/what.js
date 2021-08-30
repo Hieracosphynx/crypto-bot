@@ -1,12 +1,12 @@
-const { MessageEmbed } = require('discord.js');
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const fetch = require('node-fetch');
+import { MessageEmbed } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
+import fetch from 'node-fetch';
 require('dotenv').config();
 
 const fetchData = async (search) => {
   try {
     const response = await fetch(
-      `https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/info?symbol=${search}`,
+      `https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?symbol=${search}`,
       {
         method: 'GET',
         headers: {
@@ -71,7 +71,7 @@ const fetchData = async (search) => {
   }
 };
 
-module.exports = {
+const what = {
   data: new SlashCommandBuilder()
     .setName('what')
     .setDescription('Search for crypto')
@@ -87,3 +87,5 @@ module.exports = {
     });
   },
 };
+
+export default what;
