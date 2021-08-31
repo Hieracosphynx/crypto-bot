@@ -43,7 +43,7 @@ const alert = {
     const crypto = interaction.options.getString('cryptocurrency');
     const { id: guildId } = interaction.guild;
     const strValue = interaction.options.getString('value');
-    const value = Number(strValue);
+    const value = +strValue;
 
     if (!value) {
       await interaction.reply({

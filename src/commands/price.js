@@ -1,12 +1,13 @@
 import { MessageEmbed } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { API_URL } from '../config/endpoints';
 import fetch from 'node-fetch';
 
 const priceHandler = async (crypto, currency) => {
   currency = currency === null ? 'USD' : currency;
   try {
     const response = await fetch(
-      `https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=${crypto}&convert=${currency}`,
+      `${API_URL}/quotes/latest?symbol=${crypto}&convert=${currency}`,
       {
         method: 'GET',
         headers: {
