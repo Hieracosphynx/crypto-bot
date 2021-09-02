@@ -107,6 +107,8 @@ const alertHandler = (alerts, client) => {
   });
 };
 
+// TODO: Set a main function.
+
 const serverReady = {
   name: 'ready',
   once: true,
@@ -120,11 +122,16 @@ const serverReady = {
     // Get data
     let cryptos;
     let alerts;
+
     setInterval(async () => {
       try {
+        /**
+         * Set initial value to empty arrays.
+         * Remove any unneccessary cryptocurrencies not being monitored by any user/s
+         */
         cryptocurrencies.splice(0, cryptocurrencies.length);
         cryptoValues.splice(0, cryptoValues.length);
-        console.log('Initial ', cryptocurrencies, cryptoValues);
+
         cryptos = await Alert.find({})
           .distinct('cryptocurrency')
           .where('is_active')
@@ -136,7 +143,7 @@ const serverReady = {
       } catch (err) {
         console.error(err.message);
       }
-    }, 20000);
+    }, 900000);
   },
 };
 
