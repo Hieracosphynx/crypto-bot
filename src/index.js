@@ -1,7 +1,9 @@
 import { Client, Collection, Intents } from 'discord.js';
+import fetch from 'node-fetch';
 import fs from 'fs';
 import Guild from './models/Guild';
 import { config } from 'dotenv';
+import { cryptocurrencies } from './lib/crypto';
 
 // Init dotenv
 config();
@@ -50,15 +52,11 @@ client.on('interactionCreate', async (interaction) => {
 
   const command = client.commands.get(interaction.commandName);
   if (!command) return;
-
   try {
     await command.execute(interaction);
-  } catch (e) {
-    console.error(e.message);
-    await interaction.reply({
-      content: 'Something went wrong!',
-      ephemeral: true,
-    });
+  } catch (err) {
+    console.error(err.message);
+    await interaction.reply({ content: 'Yea.... Something went wrong' });
   }
 });
 
@@ -86,6 +84,7 @@ client.on('messageCreate', async (message) => {
     });
   } catch (err) {
     console.error(err.message);
+    return;
   }
 });
 

@@ -7,7 +7,6 @@ import Guild from './models/Guild';
 import { config } from 'dotenv';
 
 config();
-
 const client = new Discord.Client({ intents: ['GUILDS', 'GUILD_MESSAGES'] });
 
 const clientId = process.env.CLIENT_ID;
@@ -26,20 +25,27 @@ const rest = new REST({
   version: '9',
 }).setToken(process.env.TOKEN);
 
-(async () => {
-  try {
-    await connectDB();
-    const guilds = await Guild.find({});
+const delay = async (ms = 5000) =>
+  setTimeout(() => {
+    console.log('sss');
+    return;
+  }, ms);
 
+(async () => {
+  await connectDB();
+
+  try {
+    const guilds = await Guild.find({});
     console.log('Loading slash(/) commands');
     guilds.map(async ({ guild_id: guildId }) => {
-      await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
-        body: commands,
-      });
+      const res = await rest.put(
+        Routes.applicationGuildCommands(clientId, guildId),
+        {
+          body: commands,
+        }
+      );
     });
-    console.log('Reloaded / commands');
-
-    process.exit(0);
+    console.log('Success!');
   } catch (err) {
     console.error(err.message);
   }

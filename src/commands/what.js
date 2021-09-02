@@ -1,18 +1,16 @@
 import { MessageEmbed } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import fetch from 'node-fetch';
+import { API_URL } from '../config/endpoints';
 
 const whatHandler = async (search) => {
   try {
-    const response = await fetch(
-      `https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?symbol=${search}`,
-      {
-        method: 'GET',
-        headers: {
-          'X-CMC_PRO_API_KEY': process.env.API_KEY,
-        },
-      }
-    );
+    const response = await fetch(`${API_URL}/info?symbol=${search}`, {
+      method: 'GET',
+      headers: {
+        'X-CMC_PRO_API_KEY': process.env.API_KEY,
+      },
+    });
 
     if (!response.ok) {
       throw new Error('Something went wrong.');
