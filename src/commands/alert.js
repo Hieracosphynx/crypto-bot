@@ -4,7 +4,6 @@ import Alert from '../models/Alert';
 import Guild from '../models/Guild';
 
 const alertHandler = async (userId, crypto, value, guildId, channelId) => {
-  console.log(userId, crypto, value, guildId, channelId);
   const alert = await new Alert({
     guild_id: guildId,
     user_id: userId,
