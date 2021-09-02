@@ -36,7 +36,7 @@ const priceHandler = async (crypto, currency) => {
       )
       .setURL(cryptoUrl)
       .addFields(
-        { name: 'Abbreviation', value: crypto, inline: true },
+        { name: 'Symbol', value: crypto, inline: true },
         { name: 'Market Price', value: cryptoPrice, inline: true },
         {
           name: 'Source',
