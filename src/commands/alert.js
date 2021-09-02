@@ -37,7 +37,7 @@ const alertHandler = async (userId, crypto, value, guildId, channelId) => {
     embeds: [
       new MessageEmbed()
         .setColor('#7afaae')
-        .setDescription(`Not yet ${bold('functional')}...`),
+        .setDescription(`Set: $${value} Cryptocurrency: ${crypto}`),
     ],
   };
 };
