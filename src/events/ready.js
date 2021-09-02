@@ -51,7 +51,6 @@ const addSymbolHandler = (cryptos) => {
 };
 
 const alertHandler = (alerts, client) => {
-  console.log(cryptoValues);
   alerts.map(async (alert) => {
     const { _id, user_id, guild_id, cryptocurrency: symbol, value } = alert;
     const guild = await Guild.find({ guild_id });
