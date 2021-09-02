@@ -78,7 +78,6 @@ const guildHandler = async (guildId, callback) => {
 
 client.on('messageCreate', async (message) => {
   const { guildId } = message;
-  console.log(guildId);
   try {
     guildHandler(guildId, (callback) => {
       console.log(callback);

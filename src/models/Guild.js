@@ -6,6 +6,10 @@ const GuildSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    channel_id: {
+      type: String,
+      required: false,
+    },
   },
   { timestamps: true }
 );

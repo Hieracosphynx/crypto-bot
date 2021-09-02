@@ -30,7 +30,6 @@ const rest = new REST({
   try {
     await connectDB();
     const guilds = await Guild.find({});
-
     console.log('Loading slash(/) commands');
     guilds.map(async ({ guild_id: guildId }) => {
       await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
