@@ -55,9 +55,7 @@ const alert = {
       });
       return;
     }
-    await interaction.reply(
-      await alertHandler(userId, crypto.toUpperCase(), value, guildId)
-    );
+    await interaction.reply(await alertHandler(userId, crypto, value, guildId));
   },
 };
 

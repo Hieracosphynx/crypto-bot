@@ -1,8 +1,9 @@
 import { Client, Collection, Intents } from 'discord.js';
+import fetch from 'node-fetch';
 import fs from 'fs';
 import Guild from './models/Guild';
 import { config } from 'dotenv';
-import { cryptoValues } from './lib/crypto';
+import { cryptocurrencies } from './lib/crypto';
 
 // Init dotenv
 config();
@@ -75,9 +76,9 @@ const guildHandler = async (guildId, callback) => {
   return callback('Success');
 };
 
-// Guild received message
 client.on('messageCreate', async (message) => {
   const { guildId } = message;
+  console.log(guildId);
   try {
     guildHandler(guildId, (callback) => {
       console.log(callback);
